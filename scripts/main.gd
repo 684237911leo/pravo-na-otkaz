@@ -31,7 +31,7 @@ var enemies: Array = []
 var shots: Array = []
 var wave := 0
 var wave_timer := 2.0
-var dead := false
+var dead := true
 
 var hp_bar: ProgressBar
 var info: Label
@@ -44,6 +44,7 @@ func _ready() -> void:
 	_build_world()
 	_build_player()
 	_build_ui()
+	_start_prologue()
 
 
 func _build_world() -> void:
@@ -458,3 +459,17 @@ func _physics_process(delta: float) -> void:
 		verdict_btn.text = "Вердикт %.1f" % verdict_cd
 	else:
 		verdict_btn.text = "Вердикт"
+
+    func _start_prologue() -> void:
+	var dlg = preload("res://scripts/dialogue.gd").new()
+	add_child(dlg)
+	dlg.finished.connect(_on_prologue_done)
+	dlg.start("res://data/prologue.json")
+
+
+    func _on_prologue_done(flags: Dictionary) -> void:
+	if flags.get("took_elixir", false):
+		hp = 130.0
+		hp_bar.max_value = 130.0
+		hp_bar.value = hp
+	dead = false
