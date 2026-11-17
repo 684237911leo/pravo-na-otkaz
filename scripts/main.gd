@@ -37,6 +37,7 @@ var hp_bar: ProgressBar
 var info: Label
 var verdict_btn: Button
 var dash_btn: Button
+var hero: Node3D
 
 
 func _ready() -> void:
@@ -128,7 +129,7 @@ func _build_player() -> void:
 	player.add_child(col)
 	mesh.visible = false
 	nose.visible = false
-	var hero = preload("res://scripts/hero.gd").new()
+	hero = preload("res://scripts/hero.gd").new()
 	hero.position = Vector3(0, -0.9, 0)
 	player.add_child(hero)
 	add_child(player)
@@ -451,6 +452,7 @@ func _physics_process(delta: float) -> void:
 			has_target = false
 	player.velocity = vel
 	player.move_and_slide()
+	hero.set_moving(player.velocity.length() > 0.5)
 	player.position.x = clampf(player.position.x, -19.0, 19.0)
 	player.position.z = clampf(player.position.z, -19.0, 19.0)
 	player.rotation.y = atan2(-facing.x, -facing.z)
