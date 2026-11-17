@@ -459,15 +459,29 @@ func _physics_process(delta: float) -> void:
 		verdict_btn.text = "Вердикт %.1f" % verdict_cd
 	else:
 		verdict_btn.text = "Вердикт"
+
+var arena_nodes: Array = []
+var office: Node3D
+
 func _start_prologue() -> void:
+	for c in get_children():
+		if c == player or c == cam or c is CanvasLayer:
+			continue
+		arena_nodes.append(c)
+		remove_child(c)
+	office = preload("res://scripts/locations.gd").new()
+	add_child(office)
+	office.build_office()
+	cam.size = 12.0
 	var dlg = preload("res://scripts/dialogue.gd").new()
 	add_child(dlg)
 	dlg.finished.connect(_on_prologue_done)
 	dlg.start("res://data/prologue.json")
 
 func _on_prologue_done(flags: Dictionary) -> void:
-	if flags.get("took_elixir", false):
-		hp = 130.0
-		hp_bar.max_value = 130.0
-		hp_bar.value = hp
+	office.queue_free()
+	for c in arena_nodes:
+		add_child(c)
+	arena_nodes.clear()
+	cam.size = 18.0
 	dead = false
