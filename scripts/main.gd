@@ -129,7 +129,8 @@ func _build_player() -> void:
 
 	cam = Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
-	cam.size = 16.0
+	cam.keep_aspect = Camera3D.KEEP_WIDTH
+	cam.size = 18.0
 	add_child(cam)
 	_update_camera()
 
