@@ -126,6 +126,11 @@ func _build_player() -> void:
 	shape.radius = 0.4
 	col.shape = shape
 	player.add_child(col)
+	mesh.visible = false
+	nose.visible = false
+	var hero = preload("res://scripts/hero.gd").new()
+	hero.position = Vector3(0, -0.9, 0)
+	player.add_child(hero)
 	add_child(player)
 
 	cam = Camera3D.new()
