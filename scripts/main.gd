@@ -472,7 +472,8 @@ func _start_prologue() -> void:
 	office = preload("res://scripts/locations.gd").new()
 	add_child(office)
 	office.build_office()
-	cam.size = 12.0
+	cam.projection = Camera3D.PROJECTION_PERSPECTIVE
+	cam.fov = 38.0
 	var dlg = preload("res://scripts/dialogue.gd").new()
 	add_child(dlg)
 	dlg.finished.connect(_on_prologue_done)
@@ -483,5 +484,6 @@ func _on_prologue_done(flags: Dictionary) -> void:
 	for c in arena_nodes:
 		add_child(c)
 	arena_nodes.clear()
+    cam.projection = Camera3D.PROJECTION_ORTHOGONAL
 	cam.size = 18.0
 	dead = false
