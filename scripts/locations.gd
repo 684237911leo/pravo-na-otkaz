@@ -61,8 +61,9 @@ func _env(bg: Color, amb: Color, amb_energy: float, fog_density: float) -> void:
 	e.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	e.ambient_light_color = amb
 	e.ambient_light_energy = amb_energy
-	e.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	e.tonemap_mode = Environment.TONE_MAPPER_FILMкнIC
 	e.glow_enabled = true
+	e.fog_sky_affect = 0.0
 	e.glow_intensity = 0.9
 	e.glow_hdr_threshold = 0.8
 	e.adjustment_enabled = true
